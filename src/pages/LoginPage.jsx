@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { borderRadius, styled } from '@mui/system';
+import { styled } from '@mui/system';
 import { Button, Grid, TextField } from '@mui/material';
 import LogoSvg from '../assets/LogoSvg'
 
@@ -46,6 +46,9 @@ const StyledTextField = styled(TextField)({
   height: 50,
   background: '#333333',
   borderRadius: 4,
+  '& .MuiOutlinedInput-root': {
+    background: '#333333'
+  },
   '& .MuiInputBase-input': {
     color: '#fff',
   },
@@ -121,7 +124,7 @@ const LoginPage = () => {
               fullWidth 
             />
 
-            <StyledSubmitButton fullWidth onClick>
+            <StyledSubmitButton fullWidth>
               Sign In
             </StyledSubmitButton>
 
