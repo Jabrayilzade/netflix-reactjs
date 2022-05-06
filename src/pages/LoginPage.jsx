@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import { styled } from '@mui/system';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField, Checkbox, FormControlLabel } from '@mui/material';
 import LogoSvg from '../assets/LogoSvg'
+
 
 const BackgroundImageWrapper = styled('div')({
   backgroundSize: 'cover',
@@ -31,12 +32,18 @@ const Header = styled('div')({
 const LoginCard = styled('div')({
   background: 'rgba(0,0,0,.75)',
   padding: '60px 68px 40px',
-  borderRadius: 4
+  borderRadius: 4,
+  width: 314,
+  maxWidth: 314,
+  transition: 'all 200ms ease',
+  '& a:hover': {
+    textDecoration: 'underline',
+  }
 })
 
 const Form = styled('div')({
-  width: 314,
   marginBottom: 30,
+  transition: 'all 200ms ease',
   '& .form-header': {
     color: '#fff'
   }
@@ -68,13 +75,74 @@ const StyledSubmitButton = styled(Button)({
   }
 })
 
+const FormControl = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  fontSize: 13,
+  color: '#b3b3b3',
+  '& .MuiFormControlLabel-label': {
+    fontSize: 13,
+  },
+  '& .MuiFormControlLabel-root': {
+    margin: 0
+  },
+  '& .MuiCheckbox-root': {
+    color: '#737373 !important',
+    padding: 0,
+    marginRight: 2
+  }
+})
+
 const Footer = styled('div')({
+  color: '#737373',
+  fontWeight: 500,
+  fontSize: 16,
+  "& a": {
+    color: 'white',
+    textDecoration: 'none'
+  }
+})
+
+const Question = styled('div')({
+  marginBottom: 11,
+  '& span': {
+    color: 'white'
+  }
+})
+
+const Recaptcha = styled('div')({
+  fontSize: 13,
+  marginBottom: 11,
+  '& span': {
+    color: '#0071eb',
+    textDecoration: 'unset',
+    cursor: 'pointer'
+  }
+})
+
+const RecaptchaDetails = styled('div', {
+  shouldForwardProp: (prop) => prop !== "shiw" ,
+})(({ theme, show }) => ({
+  fontSize: 13,
+  display: show === 'true' ? 'block' : 'none',
+  transition: 'all 200ms ease',
+  '& a': {
+    color: '#0071eb',
+    textDecoration: 'unset'
+  }
+}))
+
+const HelpLink = styled('a')({
+  textDecoration: 'none',
+  color: '#b3b3b3',
 })
 
 
 const LoginPage = () => {
   const [email, setMail] = useState('')
   const [password, setPassword] = useState('')
+  const [showDetails, setShowDetails] = useState(false)
 
   const handleChangeName = (e) => {
     let value = e.target.value
@@ -85,6 +153,8 @@ const LoginPage = () => {
     let value = e.target.value
     setPassword(value)
   }
+
+  const toggleDetails = () => setShowDetails(state => !state)
 
   //? useState
   //? useEffect
@@ -102,7 +172,7 @@ const LoginPage = () => {
         </Header>
       </Grid>
 
-      <Grid container item xs={12} justifyContent="center" alignItems="center">
+      <Grid container item xs={12} justifyContent="center" alignItems="center" marginBottom={100}>
         <LoginCard>
           <Form>
             <h1 className="form-header">Sign in</h1>
@@ -128,18 +198,20 @@ const LoginPage = () => {
               Sign In
             </StyledSubmitButton>
 
-            <Grid container justifyContent="space-between">
-              <Grid item>Remember me</Grid>
-              <Grid item>Need help?</Grid>
-            </Grid>
+            <FormControl>
+              <FormControlLabel control={<Checkbox size='small' defaultChecked />} label="Remember me" />
+              <HelpLink href="https://www.netflix.com/tr-en/LoginHelp" target="_blank">Need help?</HelpLink>
+            </FormControl>
           </Form>
+
+          <Footer>
+            <Question>New to Netflix? <a href="https://www.netflix.com/tr-en/" target="_blank">Sign up now</a></Question>
+            <Recaptcha>This page is protected by Google reCAPTCHA to ensure you're not a bot.<span onClick={toggleDetails}> Learn more.</span></Recaptcha>
+            <RecaptchaDetails show={showDetails.toString()}>
+              The information collected by Google reCAPTCHA is subject to the Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a>, and is used for providing, maintaining, and improving the reCAPTCHA service and for general security purposes (it is not used for personalized advertising by Google).
+            </RecaptchaDetails>
+          </Footer>
         </LoginCard>
-      </Grid>
-
-      <Grid item xs={12}>
-        <Footer>
-
-        </Footer>
       </Grid>
     </Grid>
   )
