@@ -122,7 +122,7 @@ const Recaptcha = styled('div')({
 })
 
 const RecaptchaDetails = styled('div', {
-  shouldForwardProp: (prop) => prop !== "shiw" ,
+  shouldForwardProp: (prop) => prop !== "show" ,
 })(({ theme, show }) => ({
   fontSize: 13,
   display: show === 'true' ? 'block' : 'none',
@@ -139,7 +139,7 @@ const HelpLink = styled('a')({
 })
 
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const [email, setMail] = useState('')
   const [password, setPassword] = useState('')
   const [showDetails, setShowDetails] = useState(false)
