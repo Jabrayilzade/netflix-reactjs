@@ -58,8 +58,11 @@ export const Dashboard = () => {
     {
       name: 'Örümcek Adam evden uzakta', 
       img:  'https://occ-0-4451-3467.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUy1pBSpcaL_NNiX8JoJN8llZ4dJM3KH603kxCZow4ZcH2o1tyaKGWUcI6XWfnNnS-jLAP1WPqzfgJhx4IrQz_EaCL9ZpA4So5Piv55rKjNB_7P9fekB7Ux4WlpkAynmxwXFrK7GfrjsGroILm_oL4xPGGHLQHqPaM0.webp?r=027', 
-      rating: 4,
-      description: ''
+      rating: 5,
+      description: '',
+      date: '',
+      cast: '',
+      duration: ''
     },
     {
       name: 'Zoraki İkili', 
@@ -144,9 +147,17 @@ export const Dashboard = () => {
     let value = +e.target.value
     setRatingFilter(value)
 
-    let filteredMovies = MOVIES.filter((movie) => movie.rating > value)
+    let filteredMovies = MOVIES.filter((movie) => movie.rating >= value)
     let sortedMovies = sorters?.[sortBy](filteredMovies)
     setMutatedMovies(sortedMovies)
+  }
+
+  const handleAddMovie = () => {
+    setMutatedMovies(state => [...state, {
+      name: 'Sherlock Holmes', 
+      img:  'https://occ-0-4451-3467.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABdbF0EiAvR_xybRHa194q-XA-hnIkMPoDsAuEyLMcyqfsvkiQpIPoT7S3iHnv9-8sUjG-yXGOlwAsSSruYIIELUrHZyucSOQ7Rg.webp?r=5ec', 
+      rating: 4
+    }])
   }
 
   return (
@@ -173,7 +184,7 @@ export const Dashboard = () => {
           <Rating name="rating" value={ratingFilter} size="small" onChange={handleFilterChange}/>
         </Stack>
 
-        <Button onClick={handleOpen}>Remove movie</Button>
+        <Button onClick={handleAddMovie}>Remove movie</Button>
         <Button onClick={handleOpen}>Add movie</Button>
         <Button onClick={handleOpen}>Edit movie</Button>
 
