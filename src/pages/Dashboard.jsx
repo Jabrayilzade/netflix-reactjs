@@ -1,11 +1,7 @@
 import React from 'react'
-import { Grid, Box, Rating, Select, MenuItem, Stack, Typography, FormControl, InputLabel } from "@mui/material"
+import { Grid, Box, Rating, Select, MenuItem, Stack, Typography, FormControl, InputLabel, Button, Modal } from "@mui/material"
 import Header from "../components/Header"
 import { styled } from '@mui/system'
-
-import Button from '@mui/material/Button';
-
-import Modal from '@mui/material/Modal';
 
 const Movie = styled('div')({
   position: 'relative',
@@ -29,17 +25,22 @@ const Movie = styled('div')({
   }
 })
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+const StyledModal = styled(Modal)({
+  '& .MuiBox-root': {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    backgroundColor: '#fff',
+    border: '2px solid #000',
+    boxShadow: 24,
+    padding: 40,
+    '& .MuiTypography-root': {
+      color: 'red'
+    }
+  }
+})
 
 const sorters = {
   name: (arr) => arr.sort((a, b) => a.name.localeCompare(b.name)),
@@ -55,14 +56,15 @@ export const Dashboard = () => {
 
   const MOVIES = [
     {
-    name: 'Örümcek Adam evden uzakta', 
-    img:  'https://occ-0-4451-3467.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUy1pBSpcaL_NNiX8JoJN8llZ4dJM3KH603kxCZow4ZcH2o1tyaKGWUcI6XWfnNnS-jLAP1WPqzfgJhx4IrQz_EaCL9ZpA4So5Piv55rKjNB_7P9fekB7Ux4WlpkAynmxwXFrK7GfrjsGroILm_oL4xPGGHLQHqPaM0.webp?r=027', 
-    rating: 4
+      name: 'Örümcek Adam evden uzakta', 
+      img:  'https://occ-0-4451-3467.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUy1pBSpcaL_NNiX8JoJN8llZ4dJM3KH603kxCZow4ZcH2o1tyaKGWUcI6XWfnNnS-jLAP1WPqzfgJhx4IrQz_EaCL9ZpA4So5Piv55rKjNB_7P9fekB7Ux4WlpkAynmxwXFrK7GfrjsGroILm_oL4xPGGHLQHqPaM0.webp?r=027', 
+      rating: 4,
+      description: ''
     },
     {
-    name: 'Zoraki İkili', 
-    img: 'https://occ-0-4451-3467.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABZPurZOvE3sJtKlZBSBfhOtTXnBp7qvzptnllXiXhu7jJG6MmB0CSmXVDxdPelrysEga_rANvAa5GNKzaRama7ZGyWsO6wb9hCb8oOi4QfG0iZbrHfAPTmfAG1cZbt1XcUOCE2L6tMFCYHql4agKx3UTgm0BYGOpBM-NjSCJovQwBxAOCVX1sehYCPpBYOc.jpg?r=6b8', 
-    rating: 3
+      name: 'Zoraki İkili', 
+      img: 'https://occ-0-4451-3467.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABZPurZOvE3sJtKlZBSBfhOtTXnBp7qvzptnllXiXhu7jJG6MmB0CSmXVDxdPelrysEga_rANvAa5GNKzaRama7ZGyWsO6wb9hCb8oOi4QfG0iZbrHfAPTmfAG1cZbt1XcUOCE2L6tMFCYHql4agKx3UTgm0BYGOpBM-NjSCJovQwBxAOCVX1sehYCPpBYOc.jpg?r=6b8', 
+      rating: 3
     },
     {
       name: 'Inception', 
@@ -170,22 +172,28 @@ export const Dashboard = () => {
           <Typography>Filter by rating</Typography>
           <Rating name="rating" value={ratingFilter} size="small" onChange={handleFilterChange}/>
         </Stack>
-        <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
+
+        <Button onClick={handleOpen}>Remove movie</Button>
+        <Button onClick={handleOpen}>Add movie</Button>
+        <Button onClick={handleOpen}>Edit movie</Button>
+
+        <StyledModal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <div></div>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </StyledModal>
+        
       </Box>
       <Box p={3}>
         <Grid container gap={2}>
@@ -202,5 +210,3 @@ export const Dashboard = () => {
     </>
   )
 }
-
-export default Dashboard
