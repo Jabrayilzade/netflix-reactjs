@@ -34,8 +34,6 @@ const NavItem = styled('div', {
   }
 }))
 
-
-
 const NAV_LIST = ['Home', 'TV Shows', 'Movies', 'News & Popular', 'My List']
 const Header = () => {
   return (
@@ -59,7 +57,7 @@ const Header = () => {
             <NotificationsOutlined/>
           </Badge>
         </IconButton>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 34, height: 34 }}/>
+        <Avatar alt="Anar Mamedov" src="A" sx={{ width: 34, height: 34 }}/>
       </Stack>
     </StyledHeader>
   )
